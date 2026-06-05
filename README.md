@@ -1,42 +1,122 @@
-﻿# Krishi-Route
+# 🌾 Krishi-Route
 
-Krishi-Route is a profit and logistics optimizer for farmers. It compares nearby mandis, estimates transport cost, and ranks markets by net profit so the user can choose the most profitable selling location instead of the nearest one.
+**Krishi-Route** is an AgriTech platform designed to help farmers choose the most profitable mandi (market) for selling their crops. Instead of selecting the nearest market, the platform compares crop prices, transportation expenses, and handling costs to recommend the option that delivers the highest net profit.
 
-## What It Does
+---
 
-- Accepts crop, quantity, vehicle type, location, and optional handling costs.
-- Fetches mandi locations from local JSON data.
-- Loads crop prices from local JSON data or an optional live JSON feed.
-- Calculates route distance using OSRM when available, with haversine fallback.
-- Sorts markets by net profit and highlights the best option.
-- Shows a route map, market cards, and a cost breakdown for the winning mandi.
+## 🚀 Features
 
-## Current Architecture
+* Compare multiple nearby mandis based on profitability
+* Calculate transportation costs using route distance
+* Estimate net profit after logistics and handling expenses
+* Visualize routes on an interactive map
+* Rank markets based on expected earnings
+* Support local crop price datasets
+* Optional integration with live market price feeds
+* Automatic fallback distance calculation when routing services are unavailable
 
-This repository runs as a single Node.js + Express app.
+---
 
-- Backend: [server.js](server.js)
-- Served frontend: [public/index.html](public/index.html)
-- Market data: [data/mandis.json](data/mandis.json)
-- Price snapshot: [data/prices.json](data/prices.json)
+## 🎯 Problem Statement
 
-Important: the live app is served from `public/index.html`. The `src/` folder exists in the repo, but it is not the active runtime entry for the current setup.
+Many farmers sell their produce at the nearest mandi without considering differences in market prices and transportation costs. As a result, they may miss opportunities to earn higher profits.
 
-## Tech Stack
+**Krishi-Route answers a simple but important question:**
 
-- Node.js
-- Express
-- CORS
-- Native `fetch` and `fs/promises`
-- Leaflet for maps
-- React and Babel via CDN in the served HTML
-- OSRM public routing service for free route distance and geometry
+> **Which mandi will give the highest profit after all costs are considered?**
 
-## API
+The platform evaluates multiple markets and recommends the best destination based on actual profit rather than distance alone.
 
-### `POST /calculate-profit`
+---
 
-Request body:
+## 🏗️ System Architecture
+
+```text
+Farmer Input
+      │
+      ▼
+Profit Calculation Engine
+      │
+      ├── Crop Prices
+      ├── Market Locations
+      ├── Transport Cost
+      └── Handling Charges
+      │
+      ▼
+Market Ranking Engine
+      │
+      ▼
+Best Mandi Recommendation
+      │
+      ▼
+Route Map + Profit Breakdown
+```
+
+---
+
+## 🛠️ Tech Stack
+
+### Backend
+
+* Node.js
+* Express.js
+* CORS
+* Native Fetch API
+* fs/promises
+
+### Frontend
+
+* HTML5
+* CSS3
+* JavaScript
+* React (CDN-based)
+* Babel
+
+### Mapping & Routing
+
+* Leaflet.js
+* OpenStreetMap
+* OSRM Routing Service
+
+### Data Storage
+
+* JSON-based mandi datasets
+* JSON-based crop price datasets
+
+---
+
+## 📂 Project Structure
+
+```text
+krishi-route/
+│
+├── data/
+│   ├── mandis.json
+│   └── prices.json
+│
+├── public/
+│   └── index.html
+│
+├── src/
+│   ├── components/
+│   └── frontend files
+│
+├── server.js
+├── package.json
+└── README.md
+```
+
+> The application is served through `public/index.html` and managed by the Express backend.
+
+---
+
+## 📡 API Endpoints
+
+### POST `/calculate-profit`
+
+Calculates profitability across available mandis and returns ranked recommendations.
+
+#### Sample Request
 
 ```json
 {
@@ -52,83 +132,161 @@ Request body:
 }
 ```
 
-Response:
+#### Response Includes
 
-- Ranked list of mandis by net profit
-- Distance, revenue, transport cost, total cost, profit margin
-- Route geometry for the winning mandi when OSRM succeeds
+* Ranked mandi recommendations
+* Revenue estimates
+* Distance calculations
+* Transportation costs
+* Total expenses
+* Net profit
+* Route geometry for the best market
 
-### `GET /api/crops`
+### GET `/api/crops`
 
-Returns the crop names available in the current price snapshot.
+Returns the list of available crops.
 
-### `GET /api/markets`
+### GET `/api/markets`
 
-Returns the loaded mandis and their coordinates.
+Returns mandi locations and metadata.
 
-### `GET /health`
+### GET `/health`
 
-Simple health check.
+Health check endpoint.
 
-## How Profit Is Calculated
+---
 
-The backend uses:
+## 📈 Profit Calculation
 
 ```text
 Revenue = Market Price × Quantity
+
 Transport Cost = Distance × Vehicle Rate
-Total Cost = Transport Cost + Loading + Unloading + Handling
-Net Profit = Revenue - Total Cost
+
+Total Cost =
+Transport Cost +
+Loading Cost +
+Unloading Cost +
+Handling Cost
+
+Net Profit =
+Revenue − Total Cost
 ```
 
-Quantity is normalized to tons before calculation. If the user enters quintals, the server converts them to tons.
+All quantities are automatically converted into tons before calculations are performed.
 
-## Data Source Details
+---
 
-### Mock / Local Data
+## 📍 Distance Calculation
 
-These are local project files, not live external feeds:
+### Primary Method
 
-- [data/mandis.json](data/mandis.json) stores mandi IDs, names, and coordinates.
-- [data/prices.json](data/prices.json) stores crop prices per mandi.
-- Vehicle rates are defined in [server.js](server.js).
+* OSRM Routing Service
+* Real road-network distance
 
-### Dynamic / Live Behavior
+### Fallback Method
 
-- Mandi and crop lists are loaded at request time from the JSON files.
-- If `MARKET_PRICE_FEED_URL` is set, the backend tries that URL first for prices.
-- Route distance uses the free OSRM public service.
-- If OSRM fails, the backend falls back to haversine distance.
+* Haversine Formula
+* Straight-line geographic distance
 
-## Running the Project
+This ensures reliable results even when routing services are unavailable.
 
-### 1. Install dependencies
+---
+
+## 📊 Data Sources
+
+### Local Dataset
+
+``
+
+* Market information
+* Coordinates
+* Market identifiers
+
+``
+
+* Crop prices
+* Market-wise pricing data
+
+### Optional Live Feed
+
+If configured, the application can fetch live market prices using:
+
+```env
+MARKET_PRICE_FEED_URL
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/your-username/krishi-route.git
+cd krishi-route
+```
+
+### Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 2. Start the server
+### Start the Server
 
 ```bash
 npm start
 ```
 
-### 3. Open the app
-
-Go to:
+### Open the Application
 
 ```text
 http://localhost:5000
 ```
 
-## Environment Variables
+---
 
-- `PORT` - server port. Defaults to `5000`.
-- `MARKET_PRICE_FEED_URL` - optional JSON endpoint for live price data.
+## 🔧 Environment Variables
 
-## Notes
+| Variable              | Description                   |
+| --------------------- | ----------------------------- |
+| PORT                  | Server port (Default: 5000)   |
+| MARKET_PRICE_FEED_URL | Optional live crop price feed |
 
-- This is an MVP, not a production agricultural market integration.
-- Real mandi pricing depends on the external feed you connect through `MARKET_PRICE_FEED_URL`.
-- The current default data set is intentionally small for demonstration and testing.
+---
+
+## 🌱 Future Enhancements
+
+* Live Agmarknet integration
+* AI-based price prediction
+* Weather-aware market recommendations
+* Multilingual support (Kannada, Hindi, Marathi)
+* Farmer advisory chatbot
+* Blockchain-based crop traceability
+* Mobile application
+
+---
+
+## 📌 Project Status
+
+**Current Version:** MVP (Minimum Viable Product)
+
+This project was built for learning, demonstration, and portfolio purposes. It can be further enhanced with live agricultural market APIs, predictive analytics, and advanced decision-support features.
+
+---
+
+## 👨‍💻 Author
+
+**Chethan A.**
+
+BE Student • Full Stack Developer • Hobby project
+
+Passionate about building technology solutions that create real-world impact in agriculture and society.
+
+---
+
+## 📸 Project Screenshots
+
+<img width="1232" height="846" alt="image" src="https://github.com/user-attachments/assets/c341797a-e9fa-46d0-9189-49abad244984" /> <img width="1156" height="842" alt="image" src="https://github.com/user-attachments/assets/a2bf8687-95d9-43ce-a7dc-08370ad90c48" />
+
