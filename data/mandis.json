@@ -1,0 +1,30 @@
+[
+  {
+    "id": "mandi-a",
+    "name": "Mandi A",
+    "lat": 28.6139,
+    "lon": 77.209,
+    "state": "Delhi"
+  },
+  {
+    "id": "mandi-b",
+    "name": "Mandi B",
+    "lat": 26.9124,
+    "lon": 75.7873,
+    "state": "Rajasthan"
+  },
+  {
+    "id": "mandi-c",
+    "name": "Mandi C",
+    "lat": 23.2599,
+    "lon": 77.4126,
+    "state": "Madhya Pradesh"
+  },
+  {
+    "id": "mandi-d",
+    "name": "Mandi D",
+    "lat": 19.076,
+    "lon": 72.8777,
+    "state": "Maharashtra"
+  }
+]

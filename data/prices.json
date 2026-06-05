@@ -1,0 +1,33 @@
+{
+  "updated_at": "2026-06-05T00:00:00Z",
+  "markets": {
+    "mandi-a": {
+      "onion": 18000,
+      "wheat": 22000,
+      "tomato": 24000,
+      "rice": 26000,
+      "maize": 18000
+    },
+    "mandi-b": {
+      "onion": 19500,
+      "wheat": 21500,
+      "tomato": 22500,
+      "rice": 25500,
+      "maize": 19000
+    },
+    "mandi-c": {
+      "onion": 20500,
+      "wheat": 22500,
+      "tomato": 23500,
+      "rice": 25000,
+      "maize": 18500
+    },
+    "mandi-d": {
+      "onion": 21200,
+      "wheat": 22800,
+      "tomato": 24200,
+      "rice": 25200,
+      "maize": 19250
+    }
+  }
+}

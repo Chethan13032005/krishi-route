@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Krishi-Route - Profit & Logistics Optimizer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>.leaflet-container { height: 320px; }</style>
+</head>
+<body class="bg-slate-50">
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useEffect, useMemo } = React;
+
+    const ProfitForm = ({ values, onChange, onSubmit, loading, error, cropOptions }) => {
+      const vehicleOptions = [
+        { value: "tata_ace", label: "Tata Ace" },
+        { value: "tractor", label: "Tractor" },
+        { value: "mini_truck", label: "Mini Truck" },
+        { value: "truck", label: "Truck" },
+      ];
+      const unitOptions = [
+        { value: "ton", label: "Ton" },
+        { value: "quintal", label: "Quintal" },
+      ];
+      const useGps = () => navigator.geolocation?.getCurrentPosition(
+        (pos) => { onChange("user_lat", pos.coords.latitude.toFixed(6)); onChange("user_lon", pos.coords.longitude.toFixed(6)); },
+        () => {}
+      );
+      return (
+        <form onSubmit={onSubmit} className="space-y-5">
+          <div><h2 className="text-xl font-semibold">Input Details</h2><p className="text-sm text-slate-500">Enter crop and transport details to estimate profits.</p></div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <label className="flex flex-col gap-2 text-sm font-medium">Crop Type
+              <select className="rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm" value={values.crop} onChange={(e) => onChange("crop", e.target.value)} disabled={!cropOptions.length}>
+                {!cropOptions.length ? <option value="">Loading crops...</option> : cropOptions.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+              </select>
+            </label>
+            <label className="flex flex-col gap-2 text-sm font-medium">Quantity
+              <input type="number" min="0" step="0.1" required className="rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm" value={values.quantity} onChange={(e) => onChange("quantity", e.target.value)} />
+            </label>
+            <label className="flex flex-col gap-2 text-sm font-medium">Unit
+              <select className="rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm" value={values.quantity_unit} onChange={(e) => onChange("quantity_unit", e.target.value)}>{unitOptions.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}</select>
+            </label>
+            <label className="flex flex-col gap-2 text-sm font-medium">Vehicle Type
+              <select className="rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm" value={values.vehicle_type} onChange={(e) => onChange("vehicle_type", e.target.value)}>{vehicleOptions.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}</select>
+            </label>
+            <label className="flex flex-col gap-2 text-sm font-medium">Loading Cost (₹)<input type="number" min="0" step="1" className="rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm" value={values.loading_cost} onChange={(e) => onChange("loading_cost", e.target.value)} /></label>
+            <label className="flex flex-col gap-2 text-sm font-medium">Unloading Cost (₹)<input type="number" min="0" step="1" className="rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm" value={values.unloading_cost} onChange={(e) => onChange("unloading_cost", e.target.value)} /></label>
+            <label className="flex flex-col gap-2 text-sm font-medium">Handling Cost (₹)<input type="number" min="0" step="1" className="rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm" value={values.handling_cost} onChange={(e) => onChange("handling_cost", e.target.value)} /></label>
+            <label className="flex flex-col gap-2 text-sm font-medium">Latitude<input type="number" step="0.000001" required className="rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm" value={values.user_lat} onChange={(e) => onChange("user_lat", e.target.value)} /></label>
+            <label className="flex flex-col gap-2 text-sm font-medium">Longitude<input type="number" step="0.000001" required className="rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm" value={values.user_lon} onChange={(e) => onChange("user_lon", e.target.value)} /></label>
+          </div>
+          <button type="button" onClick={useGps} className="w-full rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-700">Fetch GPS Location</button>
+          {error && <div className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{error}</div>}
+          <button type="submit" disabled={loading} className="w-full rounded-lg bg-emerald-600 px-4 py-3 text-sm font-semibold text-white disabled:bg-emerald-300">{loading ? "Calculating..." : "Calculate Profit"}</button>
+        </form>
+      );
+    };
+
+    const MarketResults = ({ results }) => !results.length ? <div><h2 className="text-xl font-semibold">Market Results</h2><p className="mt-2 text-sm text-slate-500">Submit your inputs to see the top markets sorted by profit.</p></div> : <div><h2 className="mb-4 text-xl font-semibold">Market Results (Sorted by Profit)</h2><div className="grid gap-4 md:grid-cols-3">{results.map((market, index) => <div key={market.market_id} className={`rounded-2xl border p-4 shadow-sm ${index === 0 ? "border-emerald-300 bg-emerald-50" : "border-slate-200 bg-white"}`}><div className="flex items-start justify-between"><div><h3 className="text-lg font-semibold">{market.market_name}</h3><p className="text-xs text-slate-500">{market.market_id}</p></div>{index === 0 && <span className="rounded-full bg-emerald-600 px-2 py-1 text-xs font-semibold text-white">Winner</span>}</div><div className="mt-4 space-y-2 text-sm text-slate-600"><div className="flex justify-between"><span>Price/ton</span><span className="font-medium">₹{market.price_per_ton}</span></div><div className="flex justify-between"><span>Revenue</span><span className="font-medium">₹{market.revenue}</span></div><div className="flex justify-between"><span>Distance</span><span className="font-medium">{market.distance_km} km</span></div><div className="flex justify-between"><span>Transport cost</span><span className="font-medium">₹{market.transport_cost}</span></div><div className="flex justify-between"><span>Other costs</span><span className="font-medium">₹{market.other_costs}</span></div><div className="flex justify-between"><span>Total cost</span><span className="font-medium">₹{market.total_cost}</span></div><div className="border-t border-slate-200 pt-2 font-semibold flex justify-between text-emerald-700"><span>Net Profit</span><span>₹{market.net_profit}</span></div><div className="flex justify-between"><span>Profit margin</span><span className="font-semibold">{market.profit_margin_percent}%</span></div></div></div>)}</div></div>;
+
+    const WinnerChart = ({ winner }) => {
+      if (!winner) return <div><h2 className="text-xl font-semibold">Winning Market Breakdown</h2><p className="mt-2 text-sm text-slate-500">The chart will appear once results are available.</p></div>;
+      return <div><div className="mb-4"><h2 className="text-xl font-semibold">Winning Market Breakdown</h2><p className="text-sm text-slate-500">{winner.market_name} has the highest net profit.</p><div className="mt-3 grid gap-2 text-sm text-slate-600 sm:grid-cols-2"><div className="rounded-lg bg-slate-50 px-3 py-2">Net Profit: <strong>₹{winner.net_profit}</strong></div><div className="rounded-lg bg-slate-50 px-3 py-2">Profit Margin: <strong>{winner.profit_margin_percent}%</strong></div></div></div><div className="rounded-lg border border-slate-200 p-4"><table className="w-full text-sm"><tbody><tr className="border-b"><td className="py-2">Revenue</td><td className="text-right font-medium">₹{winner.revenue}</td></tr><tr className="border-b"><td className="py-2">Transport Cost</td><td className="text-right font-medium">₹{winner.transport_cost}</td></tr><tr className="border-b"><td className="py-2">Other Costs</td><td className="text-right font-medium">₹{winner.other_costs}</td></tr><tr className="bg-emerald-50 font-semibold"><td className="py-2">Net Profit</td><td className="text-right text-emerald-700">₹{winner.net_profit}</td></tr></tbody></table></div></div>;
+    };
+
+    const MarketMap = ({ results, userLocation }) => {
+      const mapRef = React.useRef(null);
+      const mapInstance = React.useRef(null);
+      const layerRef = React.useRef(null);
+      useEffect(() => {
+        if (!mapRef.current) return;
+        if (!mapInstance.current) {
+          mapInstance.current = window.L.map(mapRef.current).setView([28.6139, 77.209], 6);
+          window.L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { attribution: "&copy; OpenStreetMap" }).addTo(mapInstance.current);
+        }
+        const map = mapInstance.current;
+        if (layerRef.current) layerRef.current.remove();
+        layerRef.current = window.L.layerGroup().addTo(map);
+        const bounds = window.L.latLngBounds();
+        const valid = (lat, lon) => Number.isFinite(lat) && Number.isFinite(lon);
+        if (valid(userLocation?.lat, userLocation?.lon)) {
+          window.L.marker([userLocation.lat, userLocation.lon], { title: "Your location" }).addTo(layerRef.current).bindPopup("Your location");
+          bounds.extend([userLocation.lat, userLocation.lon]);
+        }
+        results.forEach((market, index) => {
+          if (valid(market.market_lat, market.market_lon)) {
+            const icon = window.L.icon({
+              iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-${index === 0 ? "green" : "blue"}.png`,
+              shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+              iconSize: [25, 41], iconAnchor: [12, 41],
+            });
+            window.L.marker([market.market_lat, market.market_lon], { icon }).addTo(layerRef.current).bindPopup(`${market.market_name}<br/>Profit: ₹${market.net_profit}`);
+            bounds.extend([market.market_lat, market.market_lon]);
+          }
+        });
+        if (results.length && valid(userLocation?.lat, userLocation?.lon) && valid(results[0].market_lat, results[0].market_lon)) {
+          window.L.polyline([[userLocation.lat, userLocation.lon], [results[0].market_lat, results[0].market_lon]], { color: "#10B981", weight: 3 }).addTo(layerRef.current);
+        }
+        if (bounds.isValid()) map.fitBounds(bounds, { padding: [40, 40] });
+      }, [results, userLocation]);
+      return <div><h2 className="mb-4 text-xl font-semibold">Route Map</h2><div ref={mapRef} style={{ height: "320px" }} className="rounded-2xl border border-slate-200" /></div>;
+    };
+
+    const App = () => {
+      const [formValues, setFormValues] = useState({ crop: "wheat", quantity: "", quantity_unit: "ton", vehicle_type: "tractor", user_lat: "", user_lon: "", loading_cost: "", unloading_cost: "", handling_cost: "" });
+      const [results, setResults] = useState([]);
+      const [loading, setLoading] = useState(false);
+      const [error, setError] = useState("");
+      const [cropOptions, setCropOptions] = useState([]);
+      const [marketInfo, setMarketInfo] = useState({ count: 0, source: "local-file" });
+      const winner = useMemo(() => (results.length ? results[0] : null), [results]);
+      const userLocation = useMemo(() => ({ lat: Number(formValues.user_lat), lon: Number(formValues.user_lon) }), [formValues.user_lat, formValues.user_lon]);
+      useEffect(() => {
+        (async () => {
+          try {
+            const [cropsResponse, marketsResponse] = await Promise.all([fetch("/api/crops"), fetch("/api/markets")]);
+            const cropsData = await cropsResponse.json();
+            const marketsData = await marketsResponse.json();
+            setCropOptions((cropsData.crops || []).map((crop) => ({ value: crop, label: crop.charAt(0).toUpperCase() + crop.slice(1) })));
+            setMarketInfo({ count: marketsData.count || 0, source: "live file feed" });
+          } catch {
+            setCropOptions([{ value: "onion", label: "Onion" }, { value: "wheat", label: "Wheat" }, { value: "tomato", label: "Tomato" }, { value: "rice", label: "Rice" }, { value: "maize", label: "Maize" }]);
+            setMarketInfo({ count: 0, source: "fallback" });
+          }
+        })();
+      }, []);
+      const handleChange = (name, value) => setFormValues((prev) => ({ ...prev, [name]: value }));
+      const handleSubmit = async (e) => {
+        e.preventDefault(); setLoading(true); setError(""); setResults([]);
+        try {
+          const payload = { crop: formValues.crop, quantity: Number(formValues.quantity), quantity_unit: formValues.quantity_unit, vehicle_type: formValues.vehicle_type, user_lat: Number(formValues.user_lat), user_lon: Number(formValues.user_lon), loading_cost: Number(formValues.loading_cost) || 0, unloading_cost: Number(formValues.unloading_cost) || 0, handling_cost: Number(formValues.handling_cost) || 0 };
+          const response = await fetch("/calculate-profit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+          const data = await response.json();
+          if (!response.ok) { setError(data.error || "Request failed"); return; }
+          setResults(data.results || []);
+          setMarketInfo((prev) => ({ ...prev, count: data.markets_compared || prev.count, source: data.price_source || prev.source }));
+        } catch (err) { setError(err.message); } finally { setLoading(false); }
+      };
+      return <div className="min-h-screen bg-slate-50 text-slate-900"><div className="mx-auto max-w-6xl px-4 py-10"><header className="mb-8"><p className="text-sm uppercase tracking-widest text-emerald-600">Krishi-Route</p><h1 className="text-3xl font-bold sm:text-4xl">Profit Calculator Dashboard</h1><p className="mt-2 text-slate-600">Compare market returns based on crop price, transport distance, and vehicle costs.</p><p className="mt-2 text-sm text-slate-500">Live markets loaded: {marketInfo.count || "..."} | Price source: {marketInfo.source}</p></header><div className="grid gap-8 lg:grid-cols-2"><div className="rounded-2xl bg-white p-6 shadow-sm"><ProfitForm values={formValues} onChange={handleChange} onSubmit={handleSubmit} loading={loading} error={error} cropOptions={cropOptions} /></div><div className="rounded-2xl bg-white p-6 shadow-sm"><WinnerChart winner={winner} /></div></div><div className="mt-8 rounded-2xl bg-white p-6 shadow-sm"><MarketMap results={results} userLocation={userLocation} /></div><div className="mt-8 rounded-2xl bg-white p-6 shadow-sm"><MarketResults results={results} /></div></div></div>;
+    };
+
+    ReactDOM.render(<App />, document.getElementById("root"));
+  </script>
+</body>
+</html>
