@@ -290,3 +290,14 @@ Passionate about building technology solutions that create real-world impact in 
 
 <img width="1232" height="846" alt="image" src="https://github.com/user-attachments/assets/c341797a-e9fa-46d0-9189-49abad244984" /> <img width="1156" height="842" alt="image" src="https://github.com/user-attachments/assets/a2bf8687-95d9-43ce-a7dc-08370ad90c48" />
 
+
+
+## Krishi-Route Architecture
+```mermaid
+graph LR
+    Farmer[Farmer GPS / District] --> HaulCalc[Haversine Distance Calculator]
+    Crop[Crop & Weight in Quintals] --> ProfitEngine[Multi-Market Profit Comparator]
+    HaulCalc --> ProfitEngine
+    Prices[(Live Mandi Rates API)] --> ProfitEngine
+    ProfitEngine --> Ranking[Sorted Net Revenue Leaderboard]
+```
