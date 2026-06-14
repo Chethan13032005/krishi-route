@@ -26,5 +26,24 @@
     "lat": 19.076,
     "lon": 72.8777,
     "state": "Maharashtra"
+  },
+  {
+    "id": "mandi-karn-davanagere",
+    "name": "Davanagere APMC Market Yard",
+    "district": "Davanagere",
+    "state": "Karnataka",
+    "coordinates": {
+      "latitude": 14.4644,
+      "longitude": 75.9218
+    },
+    "operationalDays": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "contactPhone": "+91-8192-234567"
   }
 ]
