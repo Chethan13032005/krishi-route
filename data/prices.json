@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-05T00:00:00Z",
+  "updated_at": "2026-06-15",
   "markets": {
     "mandi-a": {
       "onion": 18000,
@@ -28,6 +28,9 @@
       "tomato": 24200,
       "rice": 25200,
       "maize": 19250
+    },
+    "mandi-karn-davanagere": {
+      "maize": 2180
     }
   }
 }
