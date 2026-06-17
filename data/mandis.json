@@ -45,5 +45,23 @@
       "Saturday"
     ],
     "contactPhone": "+91-8192-234567"
+  },
+  {
+    "id": "mandi-karn-hubballi",
+    "name": "Hubballi Cotton & Grain APMC",
+    "district": "Dharwad",
+    "state": "Karnataka",
+    "coordinates": {
+      "latitude": 15.3647,
+      "longitude": 75.124
+    },
+    "operationalDays": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "contactPhone": "+91-836-224411"
   }
 ]
