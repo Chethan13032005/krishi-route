@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-15",
+  "updated_at": "2026-06-25",
   "markets": {
     "mandi-a": {
       "onion": 18000,
@@ -31,6 +31,9 @@
     },
     "mandi-karn-davanagere": {
       "maize": 2180
+    },
+    "mandi-karn-hubballi": {
+      "cotton": 7450
     }
   }
 }
