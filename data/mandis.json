@@ -63,5 +63,19 @@
       "Friday"
     ],
     "contactPhone": "+91-836-224411"
+  },
+  {
+    "id": "mandi-karn-mysuru-bandipalya",
+    "name": "Mysuru Bandipalya APMC",
+    "district": "Mysuru",
+    "state": "Karnataka",
+    "coordinates": {
+      "latitude": 12.2798,
+      "longitude": 76.6715
+    },
+    "operationalDays": [
+      "Everyday"
+    ],
+    "contactPhone": "+91-821-248833"
   }
 ]
