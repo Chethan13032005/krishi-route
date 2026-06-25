@@ -77,5 +77,23 @@
       "Everyday"
     ],
     "contactPhone": "+91-821-248833"
+  },
+  {
+    "id": "mandi-karn-belagavi",
+    "name": "Belagavi Agro APMC Market Yard",
+    "district": "Belagavi",
+    "state": "Karnataka",
+    "coordinates": {
+      "latitude": 15.8497,
+      "longitude": 74.4977
+    },
+    "operationalDays": [
+      "Monday",
+      "Tuesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "contactPhone": "+91-831-242500"
   }
 ]
