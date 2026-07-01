@@ -95,5 +95,22 @@
       "Saturday"
     ],
     "contactPhone": "+91-831-242500"
+  },
+  {
+    "id": "mandi-karn-ballari",
+    "name": "Ballari Grain & Chili APMC",
+    "district": "Ballari",
+    "state": "Karnataka",
+    "coordinates": {
+      "latitude": 15.1394,
+      "longitude": 76.9214
+    },
+    "operationalDays": [
+      "Monday",
+      "Wednesday",
+      "Friday",
+      "Saturday"
+    ],
+    "contactPhone": "+91-8392-271234"
   }
 ]
