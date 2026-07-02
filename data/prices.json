@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-09",
+  "updated_at": "2026-07-16",
   "markets": {
     "mandi-a": {
       "onion": 18000,
@@ -40,6 +40,9 @@
     },
     "mandi-karn-belagavi": {
       "soybean": 4620
+    },
+    "mandi-karn-ballari": {
+      "groundnut": 6250
     }
   }
 }
