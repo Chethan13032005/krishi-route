@@ -112,5 +112,23 @@
       "Saturday"
     ],
     "contactPhone": "+91-8392-271234"
+  },
+  {
+    "id": "mandi-karn-shivamogga",
+    "name": "Shivamogga Arecanut & Paddy APMC",
+    "district": "Shivamogga",
+    "state": "Karnataka",
+    "coordinates": {
+      "latitude": 13.9299,
+      "longitude": 75.5681
+    },
+    "operationalDays": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "contactPhone": "+91-8182-220199"
   }
 ]
