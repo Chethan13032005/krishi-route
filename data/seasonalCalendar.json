@@ -1,0 +1,17 @@
+{
+  "regions": {
+    "coastal_karnataka": {
+      "primarySeasons": [
+        "Kharif",
+        "Rabi"
+      ],
+      "staple": "Paddy"
+    },
+    "north_dry_zone": {
+      "primarySeasons": [
+        "Rabi"
+      ],
+      "staple": "Jowar & Cotton"
+    }
+  }
+}
