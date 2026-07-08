@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-16",
+  "updated_at": "2026-07-23",
   "markets": {
     "mandi-a": {
       "onion": 18000,
@@ -43,6 +43,9 @@
     },
     "mandi-karn-ballari": {
       "groundnut": 6250
+    },
+    "mandi-karn-shivamogga": {
+      "arecanut": 48500
     }
   }
 }
