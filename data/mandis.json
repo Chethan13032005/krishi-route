@@ -130,5 +130,23 @@
       "Friday"
     ],
     "contactPhone": "+91-8182-220199"
+  },
+  {
+    "id": "mandi-karn-kalaburagi",
+    "name": "Kalaburagi Red Gram APMC",
+    "district": "Kalaburagi",
+    "state": "Karnataka",
+    "coordinates": {
+      "latitude": 17.3297,
+      "longitude": 76.8343
+    },
+    "operationalDays": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "contactPhone": "+91-8472-260800"
   }
 ]
