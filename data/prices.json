@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-23",
+  "updated_at": "2026-07-30",
   "markets": {
     "mandi-a": {
       "onion": 18000,
@@ -46,6 +46,9 @@
     },
     "mandi-karn-shivamogga": {
       "arecanut": 48500
+    },
+    "mandi-karn-kalaburagi": {
+      "tur dal (red gram)": 10400
     }
   }
 }
