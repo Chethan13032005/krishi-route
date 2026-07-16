@@ -148,5 +148,21 @@
       "Friday"
     ],
     "contactPhone": "+91-8472-260800"
+  },
+  {
+    "id": "mandi-karn-hassan",
+    "name": "Hassan Potato & Plantation APMC",
+    "district": "Hassan",
+    "state": "Karnataka",
+    "coordinates": {
+      "latitude": 13.0033,
+      "longitude": 76.1004
+    },
+    "operationalDays": [
+      "Tuesday",
+      "Thursday",
+      "Saturday"
+    ],
+    "contactPhone": "+91-8172-251400"
   }
 ]
