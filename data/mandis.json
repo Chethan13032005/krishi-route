@@ -164,5 +164,21 @@
       "Saturday"
     ],
     "contactPhone": "+91-8172-251400"
+  },
+  {
+    "id": "mandi-karn-udupi",
+    "name": "Udupi Coastal Spices & Copra APMC",
+    "district": "Udupi",
+    "state": "Karnataka",
+    "coordinates": {
+      "latitude": 13.3409,
+      "longitude": 74.7421
+    },
+    "operationalDays": [
+      "Monday",
+      "Wednesday",
+      "Friday"
+    ],
+    "contactPhone": "+91-820-252110"
   }
 ]
