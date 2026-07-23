@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-06",
+  "updated_at": "2026-08-13",
   "markets": {
     "mandi-a": {
       "onion": 18000,
@@ -52,6 +52,9 @@
     },
     "mandi-karn-hassan": {
       "potato": 1850
+    },
+    "mandi-karn-udupi": {
+      "coconut": 11200
     }
   }
 }
