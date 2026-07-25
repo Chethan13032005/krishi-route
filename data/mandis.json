@@ -180,5 +180,22 @@
       "Friday"
     ],
     "contactPhone": "+91-820-252110"
+  },
+  {
+    "id": "mandi-karn-vijayapura",
+    "name": "Vijayapura Horticulture APMC",
+    "district": "Vijayapura",
+    "state": "Karnataka",
+    "coordinates": {
+      "latitude": 16.8302,
+      "longitude": 75.71
+    },
+    "operationalDays": [
+      "Monday",
+      "Tuesday",
+      "Thursday",
+      "Saturday"
+    ],
+    "contactPhone": "+91-8352-255010"
   }
 ]
