@@ -301,3 +301,7 @@ graph LR
     Prices[(Live Mandi Rates API)] --> ProfitEngine
     ProfitEngine --> Ranking[Sorted Net Revenue Leaderboard]
 ```
+
+
+### Agricultural Logistics & Toll Waiver Verification
+Farmers possessing a valid Mandi Gate Pass or state Farmer ID (`FID-KA-*`) receive automated toll exemptions in route profit simulations.
