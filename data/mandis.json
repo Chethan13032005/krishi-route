@@ -197,5 +197,19 @@
       "Saturday"
     ],
     "contactPhone": "+91-8352-255010"
+  },
+  {
+    "id": "mandi-karn-kolar",
+    "name": "Kolar Tomato Special APMC Market",
+    "district": "Kolar",
+    "state": "Karnataka",
+    "coordinates": {
+      "latitude": 13.1367,
+      "longitude": 78.1291
+    },
+    "operationalDays": [
+      "Everyday"
+    ],
+    "contactPhone": "+91-8152-224800"
   }
 ]
