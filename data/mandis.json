@@ -211,5 +211,23 @@
       "Everyday"
     ],
     "contactPhone": "+91-8152-224800"
+  },
+  {
+    "id": "mandi-karn-raichur",
+    "name": "Raichur Cotton & Sona Masoori APMC",
+    "district": "Raichur",
+    "state": "Karnataka",
+    "coordinates": {
+      "latitude": 16.2076,
+      "longitude": 77.3463
+    },
+    "operationalDays": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "contactPhone": "+91-8532-238120"
   }
 ]
