@@ -229,5 +229,21 @@
       "Friday"
     ],
     "contactPhone": "+91-8532-238120"
+  },
+  {
+    "id": "mandi-karn-mandya",
+    "name": "Mandya Sugarcane & Jaggery APMC",
+    "district": "Mandya",
+    "state": "Karnataka",
+    "coordinates": {
+      "latitude": 12.5244,
+      "longitude": 76.8958
+    },
+    "operationalDays": [
+      "Tuesday",
+      "Friday",
+      "Saturday"
+    ],
+    "contactPhone": "+91-8232-221040"
   }
 ]
