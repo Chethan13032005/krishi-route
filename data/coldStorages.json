@@ -1,0 +1,14 @@
+[
+  {
+    "id": "cs-01",
+    "name": "Hubballi Agro Cold Storage",
+    "district": "Dharwad",
+    "capacityTons": 5000
+  },
+  {
+    "id": "cs-02",
+    "name": "Belagavi Potato & Onion Preservation Yard",
+    "district": "Belagavi",
+    "capacityTons": 8500
+  }
+]
