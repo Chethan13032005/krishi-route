@@ -26,4 +26,10 @@ const VEHICLE_PROFILES = {
   }
 };
 
-module.exports = { VEHICLE_PROFILES };
+function calculateFuelSurcharge(baseDieselPrice = 90.0, currentDieselPrice = 96.5) {
+  const diff = currentDieselPrice - baseDieselPrice;
+  if (diff <= 0) return 1.0;
+  return 1.0 + (diff / baseDieselPrice) * 0.35; // 35% fuel operating sensitivity
+}
+
+module.exports = { VEHICLE_PROFILES, calculateFuelSurcharge };
