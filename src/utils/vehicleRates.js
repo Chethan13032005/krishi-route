@@ -29,7 +29,11 @@ const VEHICLE_PROFILES = {
 function calculateFuelSurcharge(baseDieselPrice = 90.0, currentDieselPrice = 96.5) {
   const diff = currentDieselPrice - baseDieselPrice;
   if (diff <= 0) return 1.0;
-  return 1.0 + (diff / baseDieselPrice) * 0.35; // 35% fuel operating sensitivity
+  return 1.0 + (diff / baseDieselPrice) * 0.35;
 }
 
-module.exports = { VEHICLE_PROFILES, calculateFuelSurcharge };
+function calculateEmptyReturnDiscount(hasReturnLoad = false) {
+  return hasReturnLoad ? 0.70 : 1.0; // 30% discount if backhaul load pre-booked
+}
+
+module.exports = { VEHICLE_PROFILES, calculateFuelSurcharge, calculateEmptyReturnDiscount };
