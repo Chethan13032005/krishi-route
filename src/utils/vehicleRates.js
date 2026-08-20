@@ -33,7 +33,16 @@ function calculateFuelSurcharge(baseDieselPrice = 90.0, currentDieselPrice = 96.
 }
 
 function calculateEmptyReturnDiscount(hasReturnLoad = false) {
-  return hasReturnLoad ? 0.70 : 1.0; // 30% discount if backhaul load pre-booked
+  return hasReturnLoad ? 0.70 : 1.0;
 }
 
-module.exports = { VEHICLE_PROFILES, calculateFuelSurcharge, calculateEmptyReturnDiscount };
+function getPerishableRateMultiplier(isColdChainRequired = false) {
+  return isColdChainRequired ? 1.45 : 1.0; // 45% premium for active refrigeration
+}
+
+module.exports = {
+  VEHICLE_PROFILES,
+  calculateFuelSurcharge,
+  calculateEmptyReturnDiscount,
+  getPerishableRateMultiplier
+};
