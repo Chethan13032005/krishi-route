@@ -7,4 +7,14 @@ const WEIGHT_CONVERSIONS = {
   CRATE_TOMATO_KG: 15
 };
 
-module.exports = { WEIGHT_CONVERSIONS };
+function quintalToKg(quintals) {
+  if (quintals < 0) throw new Error('Quantity cannot be negative');
+  return quintals * WEIGHT_CONVERSIONS.QUINTAL_TO_KG;
+}
+
+function quintalToTonne(quintals) {
+  if (quintals < 0) throw new Error('Quantity cannot be negative');
+  return quintals / WEIGHT_CONVERSIONS.TONNE_TO_QUINTAL;
+}
+
+module.exports = { WEIGHT_CONVERSIONS, quintalToKg, quintalToTonne };
