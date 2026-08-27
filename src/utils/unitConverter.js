@@ -17,4 +17,18 @@ function quintalToTonne(quintals) {
   return quintals / WEIGHT_CONVERSIONS.TONNE_TO_QUINTAL;
 }
 
-module.exports = { WEIGHT_CONVERSIONS, quintalToKg, quintalToTonne };
+function bagsToQuintals(bagsCount, bagWeightKg = WEIGHT_CONVERSIONS.STANDARD_JUTE_BAG_KG) {
+  return (bagsCount * bagWeightKg) / WEIGHT_CONVERSIONS.QUINTAL_TO_KG;
+}
+
+function cratesToQuintals(crateCount, crateWeightKg = WEIGHT_CONVERSIONS.CRATE_TOMATO_KG) {
+  return (crateCount * crateWeightKg) / WEIGHT_CONVERSIONS.QUINTAL_TO_KG;
+}
+
+module.exports = {
+  WEIGHT_CONVERSIONS,
+  quintalToKg,
+  quintalToTonne,
+  bagsToQuintals,
+  cratesToQuintals
+};
