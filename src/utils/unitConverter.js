@@ -25,10 +25,17 @@ function cratesToQuintals(crateCount, crateWeightKg = WEIGHT_CONVERSIONS.CRATE_T
   return (crateCount * crateWeightKg) / WEIGHT_CONVERSIONS.QUINTAL_TO_KG;
 }
 
+function adjustWeightForMoisture(grossWeightKg, measuredMoisturePercent, standardMoisturePercent = 12.0) {
+  if (measuredMoisturePercent <= standardMoisturePercent) return grossWeightKg;
+  const excessMoistureRatio = (measuredMoisturePercent - standardMoisturePercent) / 100;
+  return parseFloat((grossWeightKg * (1 - excessMoistureRatio)).toFixed(2));
+}
+
 module.exports = {
   WEIGHT_CONVERSIONS,
   quintalToKg,
   quintalToTonne,
   bagsToQuintals,
-  cratesToQuintals
+  cratesToQuintals,
+  adjustWeightForMoisture
 };
