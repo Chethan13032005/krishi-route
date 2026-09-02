@@ -31,11 +31,16 @@ function adjustWeightForMoisture(grossWeightKg, measuredMoisturePercent, standar
   return parseFloat((grossWeightKg * (1 - excessMoistureRatio)).toFixed(2));
 }
 
+function calculateAPMCCess(grossSaleAmountRs, cessPercent = 1.5) {
+  return parseFloat(((grossSaleAmountRs * cessPercent) / 100).toFixed(2));
+}
+
 module.exports = {
   WEIGHT_CONVERSIONS,
   quintalToKg,
   quintalToTonne,
   bagsToQuintals,
   cratesToQuintals,
-  adjustWeightForMoisture
+  adjustWeightForMoisture,
+  calculateAPMCCess
 };
