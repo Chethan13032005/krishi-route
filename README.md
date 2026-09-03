@@ -305,3 +305,10 @@ graph LR
 
 ### Agricultural Logistics & Toll Waiver Verification
 Farmers possessing a valid Mandi Gate Pass or state Farmer ID (`FID-KA-*`) receive automated toll exemptions in route profit simulations.
+
+
+### API Quick Reference: Mandi Directory
+```http
+GET /api/mandis?district=Davanagere HTTP/1.1
+Host: localhost:3000
+```
