@@ -6,4 +6,13 @@ const KARNATAKA_BOUNDING_BOX = {
   maxLon: 78.6
 };
 
-module.exports = { KARNATAKA_BOUNDING_BOX };
+function isWithinKarnataka(lat, lon) {
+  return (
+    lat >= KARNATAKA_BOUNDING_BOX.minLat &&
+    lat <= KARNATAKA_BOUNDING_BOX.maxLat &&
+    lon >= KARNATAKA_BOUNDING_BOX.minLon &&
+    lon <= KARNATAKA_BOUNDING_BOX.maxLon
+  );
+}
+
+module.exports = { KARNATAKA_BOUNDING_BOX, isWithinKarnataka };
