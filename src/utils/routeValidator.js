@@ -15,4 +15,20 @@ function isWithinKarnataka(lat, lon) {
   );
 }
 
-module.exports = { KARNATAKA_BOUNDING_BOX, isWithinKarnataka };
+function validateVehiclePayloadCapacity(vehicleType, weightKg, vehicleProfiles) {
+  const profile = vehicleProfiles[vehicleType];
+  if (!profile) return { valid: false, reason: 'Unknown vehicle classification' };
+  if (weightKg > profile.maxPayloadKg) {
+    return {
+      valid: false,
+      reason: `Payload ${weightKg}kg exceeds maximum capacity of ${profile.maxPayloadKg}kg for ${profile.name}`
+    };
+  }
+  return { valid: true, utilizationPercent: Math.round((weightKg / profile.maxPayloadKg) * 100) };
+}
+
+module.exports = {
+  KARNATAKA_BOUNDING_BOX,
+  isWithinKarnataka,
+  validateVehiclePayloadCapacity
+};
