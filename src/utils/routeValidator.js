@@ -27,8 +27,14 @@ function validateVehiclePayloadCapacity(vehicleType, weightKg, vehicleProfiles) 
   return { valid: true, utilizationPercent: Math.round((weightKg / profile.maxPayloadKg) * 100) };
 }
 
+function checkAgriTransportPermit(farmerId, state = 'KA') {
+  if (!farmerId || typeof farmerId !== 'string') return false;
+  return farmerId.startsWith(`FID-${state}-`);
+}
+
 module.exports = {
   KARNATAKA_BOUNDING_BOX,
   isWithinKarnataka,
-  validateVehiclePayloadCapacity
+  validateVehiclePayloadCapacity,
+  checkAgriTransportPermit
 };
