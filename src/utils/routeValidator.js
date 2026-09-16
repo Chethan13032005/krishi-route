@@ -32,9 +32,14 @@ function checkAgriTransportPermit(farmerId, state = 'KA') {
   return farmerId.startsWith(`FID-${state}-`);
 }
 
+function isExemptFromToll(isRegisteredFarmerVehicle = true, hasMandiGatePass = true) {
+  return isRegisteredFarmerVehicle && hasMandiGatePass;
+}
+
 module.exports = {
   KARNATAKA_BOUNDING_BOX,
   isWithinKarnataka,
   validateVehiclePayloadCapacity,
-  checkAgriTransportPermit
+  checkAgriTransportPermit,
+  isExemptFromToll
 };
