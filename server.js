@@ -229,3 +229,7 @@ app.listen(PORT, () => {
   console.log(`Krishi-Route server running on port ${PORT}`);
   console.log(`Open http://localhost:${PORT} in your browser`);
 });
+
+// Route validation and vehicle rate utilities integrated
+const { VEHICLE_PROFILES } = require('./src/utils/vehicleRates');
+const { isWithinKarnataka } = require('./src/utils/routeValidator');
