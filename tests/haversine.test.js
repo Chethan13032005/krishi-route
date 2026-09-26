@@ -12,4 +12,8 @@ describe('Haversine Distance Calculator', () => {
     const dist = haversineDistance(14.4644, 75.9218, 14.4644, 75.9218);
     expect(dist).toBe(0);
   });
+
+  test('throws TypeError on invalid non-numeric inputs', () => {
+    expect(() => haversineDistance('invalid', 77.5, 12.2, 76.6)).toThrow(TypeError);
+  });
 });
