@@ -27,4 +27,13 @@ function rankMandisByNetProfit(mandisWithPrices, userParams) {
     .sort((a, b) => b.netProfit - a.netProfit);
 }
 
-module.exports = { calculateNetProfit, rankMandisByNetProfit };
+function applyPerishableDegradationFactor(netProfit, transitHours, degradationRatePerHour = 0.015) {
+  const factor = Math.max(0.6, 1 - (transitHours * degradationRatePerHour));
+  return parseFloat((netProfit * factor).toFixed(2));
+}
+
+module.exports = {
+  calculateNetProfit,
+  rankMandisByNetProfit,
+  applyPerishableDegradationFactor
+};
