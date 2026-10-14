@@ -1,5 +1,5 @@
 // Profit Ranking Unit Tests
-const { calculateNetProfit, rankMandisByNetProfit } = require('../src/utils/profitRanking');
+const { calculateNetProfit, rankMandisByNetProfit, applyPerishableDegradationFactor } = require('../src/utils/profitRanking');
 
 describe('Profit Ranking Engine', () => {
   test('calculates net margin deducting transport and cess correctly', () => {
@@ -23,5 +23,10 @@ describe('Profit Ranking Engine', () => {
     ];
     const ranked = rankMandisByNetProfit(mandis, { quantityQuintals: 20, ratePerKm: 20 });
     expect(ranked[0].name).toBe('Distant APMC');
+  });
+
+  test('applies perishable transit time degradation penalty', () => {
+    const adjusted = applyPerishableDegradationFactor(20000, 10, 0.02); // 10h * 2% = 20% degradation
+    expect(adjusted).toBe(16000);
   });
 });
