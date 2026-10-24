@@ -11,4 +11,10 @@ describe('Multilingual Crop Labels', () => {
     const label = getCropLabel('cotton', 'fr');
     expect(label).toBe('Cotton');
   });
+
+  test('has transliterations for all core Karnataka commodities', () => {
+    for (const [key, val] of Object.entries(CROP_DICTIONARY)) {
+      expect(val.transliteration).toBeTruthy();
+    }
+  });
 });
