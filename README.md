@@ -312,3 +312,13 @@ Farmers possessing a valid Mandi Gate Pass or state Farmer ID (`FID-KA-*`) recei
 GET /api/mandis?district=Davanagere HTTP/1.1
 Host: localhost:3000
 ```
+
+
+## Sample Profit Simulation Walkthrough
+
+Suppose a farmer in Chitradurga harvests **50 Quintals of Maize**:
+1. **Local Mandi (Chitradurga APMC)**: 15 km away, rate Rs 2,050/quintal.
+   - Gross: Rs 1,02,500 | Transport: Rs 360 | Cess: Rs 1,537 | **Net: Rs 1,00,603**
+2. **Regional Hub (Davanagere APMC)**: 70 km away, rate Rs 2,280/quintal.
+   - Gross: Rs 1,14,000 | Transport: Rs 1,680 | Cess: Rs 1,710 | **Net: Rs 1,10,610**
+3. **Net Profit Advantage**: **+Rs 10,007** by transporting to Davanagere despite transport costs.
